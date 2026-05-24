@@ -344,9 +344,6 @@ export default function App() {
                   <span className="text-[10px] tracking-widest font-bold uppercase text-indigo-400 block mb-1">Tailored Action Plan</span>
                   <h3 className="text-xl font-extrabold text-white">Your Actionable 30-Day Development Plan</h3>
                 </div>
-                <span className="px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-                  Gemini Generated
-                </span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -382,7 +379,7 @@ export default function App() {
 
       {/* Footer */}
       <footer className="border-t border-slate-900 bg-slate-950/60 py-6 text-center text-xs text-slate-500">
-        <p>© {new Date().getFullYear()} NeuroPersona AI. Designed for Academic Project Presentation.</p>
+        <p>© {new Date().getFullYear()} NeuroPersona AI. Designed by Yashaswi Reddy.</p>
       </footer>
     </div>
   );
