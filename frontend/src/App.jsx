@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
 
+// ==========================================
+// CONFIGURATION: Customize your logo image here!
+// ==========================================
+// - To use a local image:
+//   1. Copy your logo file (e.g., "logo.png" or "logo.svg") into your `frontend/public/` folder.
+//   2. Change the value below to exactly: "/logo.png" (or whatever your filename is).
+// - To use an online image:
+//   1. Paste the full link (e.g., "https://example.com/my-logo.png") below.
+// - To keep the stunning high-tech SVG neural YNP logo, leave it as "" (empty string).
+const CUSTOM_LOGO_URL = "";
+
 // Questions matching our scientific BFI-10 scoring engine
 const QUESTIONS = [
   { id: 'q1', trait: 'Openness (+)', text: 'I have a vivid imagination.' },
@@ -125,14 +136,56 @@ export default function App() {
       <header className="border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-3">
-            <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-violet-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-              <span className="text-white font-extrabold text-sm tracking-widest">NP</span>
+            
+            {/* Logo Renderer */}
+            {CUSTOM_LOGO_URL ? (
+              <img 
+                src={CUSTOM_LOGO_URL} 
+                alt="NeuroPersona Logo" 
+                className="h-10 w-10 object-contain rounded-xl shadow-lg"
+                onError={(e) => {
+                  // Fallback: If image fails to load, gracefully hide it and show default SVG
+                  e.target.style.display = 'none';
+                  const fallback = document.getElementById('default-logo-svg');
+                  if (fallback) fallback.classList.remove('hidden');
+                }}
+              />
+            ) : null}
+
+            {/* Custom SVG Logo with YNP geometric letterforms and neural connection nodes */}
+            <div 
+              id="default-logo-svg" 
+              className={`h-10 w-10 rounded-xl bg-gradient-to-tr from-violet-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 ${CUSTOM_LOGO_URL ? 'hidden' : ''}`}
+            >
+              <svg className="h-6 w-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                {/* Thin background grid lines for a high-tech Blueprint feel */}
+                <path d="M3 12h18M12 3v18" stroke="rgba(255,255,255,0.12)" strokeWidth="0.75" strokeDasharray="2 2" />
+                
+                {/* Letter 'Y' */}
+                <path d="M4 7l2.5 4v6" />
+                <path d="M9 7l-2.5 4" />
+                
+                {/* Letter 'N' */}
+                <path d="M11 17V7l4 10V7" />
+                
+                {/* Letter 'P' */}
+                <path d="M17.5 17V7h2.5a2.5 2.5 0 0 1 0 5h-2.5" />
+                
+                {/* Glowing Neural Nodes (Synapses) at the endpoints of YNP */}
+                <circle cx="4" cy="7" r="1" fill="currentColor" />
+                <circle cx="9" cy="7" r="1" fill="currentColor" />
+                <circle cx="6.5" cy="17" r="1" fill="currentColor" />
+                <circle cx="11" cy="7" r="1" fill="currentColor" />
+                <circle cx="15" cy="17" r="1" fill="currentColor" />
+                <circle cx="17.5" cy="17" r="1" fill="currentColor" />
+                <circle cx="20" cy="9.5" r="1" fill="currentColor" />
+              </svg>
             </div>
+
             <div>
-              <h1 className="text-lg font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
+              <h1 className="text-xl font-black tracking-tight bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
                 NeuroPersona AI
               </h1>
-              <span className="text-[10px] text-indigo-400 font-semibold tracking-wider uppercase">Academic Prototype</span>
             </div>
           </div>
           {currentStep === 3 && (
@@ -344,6 +397,9 @@ export default function App() {
                   <span className="text-[10px] tracking-widest font-bold uppercase text-indigo-400 block mb-1">Tailored Action Plan</span>
                   <h3 className="text-xl font-extrabold text-white">Your Actionable 30-Day Development Plan</h3>
                 </div>
+                <span className="px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                  Gemini Generated
+                </span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
