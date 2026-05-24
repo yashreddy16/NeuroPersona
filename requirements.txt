@@ -1,0 +1,23 @@
+This file tells the cloud server (Render) which Python libraries to install.
+
+Think of it as a shopping list for the cloud computer!
+
+FastAPI - The main framework that handles our API requests and responses
+
+fastapi>=0.110.0
+
+Uvicorn - The web server that hosts and runs our FastAPI code
+
+uvicorn>=0.28.0
+
+Google GenAI - The modern official library to talk to the Gemini AI Engine
+
+google-genai>=0.1.0
+
+Python Dotenv - Helps load our secret Gemini API key safely from our .env file
+
+python-dotenv>=1.0.1
+
+Pydantic - Helps validate data formats when sending/receiving JSON
+
+pydantic>=2.6.0
