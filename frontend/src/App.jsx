@@ -12,6 +12,7 @@ import React, { useState } from 'react';
 const CUSTOM_LOGO_URL = "";
 
 // Questions matching our scientific BFI-10 scoring engine
+//   2. Change the value below to exactly: "/logo.png" (or whatever your filename is).
 const QUESTIONS = [
   { id: 'q1', trait: 'Openness (+)', text: 'I have a vivid imagination.' },
   { id: 'q2', trait: 'Openness (-)', text: 'I prefer routine over new experiences.' },
