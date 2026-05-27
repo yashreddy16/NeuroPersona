@@ -12,7 +12,6 @@ import React, { useState } from 'react';
 const CUSTOM_LOGO_URL = "";
 
 // Questions matching our scientific BFI-10 scoring engine
-//   2. Change the value below to exactly: "/logo.png" (or whatever your filename is).
 const QUESTIONS = [
   { id: 'q1', trait: 'Openness (+)', text: 'I have a vivid imagination.' },
   { id: 'q2', trait: 'Openness (-)', text: 'I prefer routine over new experiences.' },
@@ -132,9 +131,10 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans antialiased">
+    /* UPDATED: Added a premium diagonal linear gradient to the outer body wrapper */
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-slate-100 flex flex-col font-sans antialiased">
       {/* Header */}
-      <header className="border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-md sticky top-0 z-50">
+      <header className="border-b border-slate-800/80 bg-slate-950/20 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-3">
             
@@ -145,7 +145,6 @@ export default function App() {
                 alt="NeuroPersona Logo" 
                 className="h-10 w-10 object-contain rounded-xl shadow-lg"
                 onError={(e) => {
-                  // Fallback: If image fails to load, gracefully hide it and show default SVG
                   e.target.style.display = 'none';
                   const fallback = document.getElementById('default-logo-svg');
                   if (fallback) fallback.classList.remove('hidden');
@@ -159,20 +158,11 @@ export default function App() {
               className={`h-10 w-10 rounded-xl bg-gradient-to-tr from-violet-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 ${CUSTOM_LOGO_URL ? 'hidden' : ''}`}
             >
               <svg className="h-6 w-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                {/* Thin background grid lines for a high-tech Blueprint feel */}
                 <path d="M3 12h18M12 3v18" stroke="rgba(255,255,255,0.12)" strokeWidth="0.75" strokeDasharray="2 2" />
-                
-                {/* Letter 'Y' */}
                 <path d="M4 7l2.5 4v6" />
                 <path d="M9 7l-2.5 4" />
-                
-                {/* Letter 'N' */}
                 <path d="M11 17V7l4 10V7" />
-                
-                {/* Letter 'P' */}
                 <path d="M17.5 17V7h2.5a2.5 2.5 0 0 1 0 5h-2.5" />
-                
-                {/* Glowing Neural Nodes (Synapses) at the endpoints of YNP */}
                 <circle cx="4" cy="7" r="1" fill="currentColor" />
                 <circle cx="9" cy="7" r="1" fill="currentColor" />
                 <circle cx="6.5" cy="17" r="1" fill="currentColor" />
@@ -208,7 +198,7 @@ export default function App() {
               <span>⚠️ Connection Error:</span>
             </div>
             <p className="text-xs text-rose-300/90 leading-relaxed">{error}</p>
-            <p className="text-[11px] text-slate-400">Please verify that your FastAPI local backend is active (running `uvicorn main:app --reload` on port 8000) and try again.</p>
+            <p className="text-[11px] text-slate-400">Please verify that your FastAPI local backend is active and try again.</p>
           </div>
         )}
 
@@ -238,9 +228,9 @@ export default function App() {
 
         {/* STEP 1: Interactive Quiz Mode */}
         {currentStep === 1 && (
-          <div className="max-w-xl mx-auto w-full bg-slate-900/60 border border-slate-800 rounded-2xl p-8 shadow-xl">
+          <div className="max-w-xl mx-auto w-full bg-slate-900/40 border border-slate-800/80 backdrop-blur-md rounded-2xl p-8 shadow-xl">
             {/* Progress Bar */}
-            <div className="w-full bg-slate-800 h-1.5 rounded-full mb-8 overflow-hidden">
+            <div className="w-full bg-slate-800/50 h-1.5 rounded-full mb-8 overflow-hidden">
               <div 
                 className="bg-indigo-500 h-full transition-all duration-300"
                 style={{ width: `${((currentQuestionIdx + 1) / QUESTIONS.length) * 100}%` }}
@@ -269,7 +259,7 @@ export default function App() {
                   <button
                     key={rating}
                     onClick={() => handleSelectAnswer(rating)}
-                    className="aspect-square flex flex-col items-center justify-center rounded-xl bg-slate-800 hover:bg-indigo-600 text-white font-bold text-lg md:text-xl border border-slate-700/50 hover:border-indigo-400 shadow-md transform hover:-translate-y-1 active:translate-y-0 transition-all duration-150"
+                    className="aspect-square flex flex-col items-center justify-center rounded-xl bg-slate-800/60 hover:bg-indigo-600 text-white font-bold text-lg md:text-xl border border-slate-700/40 hover:border-indigo-400 shadow-md transform hover:-translate-y-1 active:translate-y-0 transition-all duration-150"
                   >
                     {rating}
                   </button>
@@ -298,7 +288,6 @@ export default function App() {
         {/* STEP 2: Loading Analysis Screen */}
         {currentStep === 2 && (
           <div className="max-w-md mx-auto text-center py-16 flex flex-col items-center justify-center">
-            {/* Spinning Indicator */}
             <div className="h-16 w-16 rounded-full border-4 border-indigo-500/20 border-t-indigo-500 animate-spin mb-8"></div>
             <h3 className="text-xl font-bold text-white mb-2">Analyzing Responses</h3>
             <p className="text-sm text-slate-400 italic animate-pulse">{loadingMessage}</p>
@@ -310,7 +299,7 @@ export default function App() {
           <div className="space-y-8 animate-fade-in">
             
             {/* Archetype Header Card */}
-            <div className="p-8 rounded-2xl bg-gradient-to-r from-indigo-950/50 to-slate-900/80 border border-indigo-900/40 relative overflow-hidden">
+            <div className="p-8 rounded-2xl bg-slate-900/30 border border-slate-800/80 backdrop-blur-md relative overflow-hidden">
               <div className="absolute right-0 top-0 h-48 w-48 bg-indigo-500/5 rounded-full blur-3xl -z-10"></div>
               <span className="text-[10px] tracking-widest font-bold uppercase text-indigo-400 mb-2 block">Your AI Personality Archetype</span>
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
@@ -325,7 +314,7 @@ export default function App() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               
               {/* Left Column: Personality Percentages */}
-              <div className="lg:col-span-5 bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+              <div className="lg:col-span-5 bg-slate-900/30 border border-slate-800/80 backdrop-blur-md rounded-2xl p-6">
                 <h3 className="text-lg font-bold text-white mb-6 flex items-center justify-between">
                   <span>Calculated Trait Scores</span>
                   <span className="text-xs text-slate-500 font-normal">BFI-10 Standard</span>
@@ -338,7 +327,7 @@ export default function App() {
                         <span className="text-slate-300">{trait}</span>
                         <span className="text-slate-100">{score}%</span>
                       </div>
-                      <div className="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                      <div className="w-full bg-slate-800/50 h-2.5 rounded-full overflow-hidden">
                         <div 
                           className={`h-full rounded-full ${traitColors[trait] || "bg-indigo-500"}`}
                           style={{ width: `${score}%` }}
@@ -353,7 +342,7 @@ export default function App() {
               <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6">
                 
                 {/* Primary Strengths */}
-                <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+                <div className="bg-slate-900/30 border border-slate-800/80 backdrop-blur-md rounded-2xl p-6">
                   <h3 className="text-sm font-extrabold tracking-widest text-emerald-400 uppercase mb-4 flex items-center space-x-2">
                     <span className="h-2 w-2 rounded-full bg-emerald-400"></span>
                     <span>Core Strengths</span>
@@ -371,7 +360,7 @@ export default function App() {
                 </div>
 
                 {/* Core Challenges */}
-                <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+                <div className="bg-slate-900/30 border border-slate-800/80 backdrop-blur-md rounded-2xl p-6">
                   <h3 className="text-sm font-extrabold tracking-widest text-rose-400 uppercase mb-4 flex items-center space-x-2">
                     <span className="h-2 w-2 rounded-full bg-rose-400"></span>
                     <span>Bottlenecks & Struggles</span>
@@ -392,8 +381,8 @@ export default function App() {
             </div>
 
             {/* 30-Day Developmental Roadmap Card */}
-            <div className="bg-slate-900/30 border border-slate-800 rounded-2xl p-8">
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-4 border-b border-slate-800">
+            <div className="bg-slate-900/20 border border-slate-800/80 backdrop-blur-md rounded-2xl p-8">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-4 border-b border-slate-800/60">
                 <div className="mb-4 md:mb-0">
                   <span className="text-[10px] tracking-widest font-bold uppercase text-indigo-400 block mb-1">Tailored Action Plan</span>
                   <h3 className="text-xl font-extrabold text-white">Your Actionable 30-Day Development Plan</h3>
@@ -405,7 +394,7 @@ export default function App() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {results.insights.roadmap.map((phase, idx) => (
-                  <div key={idx} className="bg-slate-900/60 border border-slate-800/80 hover:border-indigo-950 rounded-xl p-5 flex flex-col justify-between transition-all duration-200">
+                  <div key={idx} className="bg-slate-900/40 border border-slate-800/60 hover:border-indigo-950 rounded-xl p-5 flex flex-col justify-between transition-all duration-200">
                     <div>
                       <div className="flex items-center justify-between mb-4">
                         <span className="text-[10px] font-extrabold bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded uppercase">
@@ -435,8 +424,8 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950/60 py-6 text-center text-xs text-slate-500">
-        <p>© {new Date().getFullYear()} NeuroPersona AI. Designed by Yashaswi Reddy.</p>
+      <footer className="border-t border-slate-900 bg-slate-950/20 py-6 text-center text-xs text-slate-500">
+        <p>© {new Date().getFullYear()} NeuroPersona AI. Designed for Academic Project Presentation.</p>
       </footer>
     </div>
   );
